@@ -1,0 +1,85 @@
+version: "3.8"
+
+services:
+  nginx:
+    build:
+      context: ./docker/dockerfiles
+      dockerfile: nginx.dockerfile
+    container_name: ${APP_NAME}_nginx
+    expose:
+      - 80/tcp
+    ports:
+      - 8001:80
+    restart: always
+    volumes:
+      - ./:/var/www/app
+      - ./docker/configs/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - php
+      - mysql
+    networks:
+      - kinolord_network
+
+  php:
+    build:
+      context: ./docker/dockerfiles/development
+      dockerfile: php.dockerfile
+      args:
+        - UID=${UID:-1000}
+        - GID=${GID:-1000}
+    container_name: ${APP_NAME}_php
+    restart: always
+    volumes:
+      - ./:/var/www/app
+    networks:
+      - kinolord_network
+
+  npm:
+    build:
+      context: ./docker/dockerfiles
+      dockerfile: npm.dockerfile
+    container_name: ${APP_NAME}_npm
+    volumes:
+      - ./:/var/www/app
+    networks:
+      - kinolord_network
+
+  mysql:
+    image: mysql
+    container_name: ${APP_NAME}_mysql
+    expose:
+      - 3306/tcp
+    ports:
+      - 3306:3306
+    restart: always
+    volumes:
+      - ./docker/database:/var/lib/mysql
+    environment:
+      - MYSQL_DATABASE=${DB_DATABASE}
+      - MYSQL_USER=${DB_USERNAME}
+      - MYSQL_PASSWORD=${DB_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
+    depends_on:
+      - phpmyadmin
+    networks:
+      - kinolord_network
+
+  phpmyadmin:
+    image: phpmyadmin
+    container_name: ${APP_NAME}_phpmyadmin
+    expose:
+      - 80/tcp
+    ports:
+      - 8081:80
+    restart: always
+    environment:
+      - PMA_HOST=${DB_HOST}
+      - PMA_PORT=${DB_PORT}
+    networks:
+      - kinolord_network
+
+
+networks:
+  kinolord_network:
+    name: kinolord_network
+    driver: bridge
