@@ -1,0 +1,57 @@
+@import '../../variables/color';
+
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    margin: 10px;
+
+    > a {
+        text-decoration: none;
+
+        .page {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            margin: 10px;
+            padding: 10px;
+
+            background-color: $main-color;
+            border-radius: 5px;
+
+
+            font-family: "Nunito", sans-serif;
+            font-optical-sizing: auto;
+            font-size: 20px;
+            font-weight: 500;
+            font-style: normal;
+
+            transition: background-color 0.2s ease;
+
+            cursor: pointer;
+
+            > span {
+                color: $secondary-color;
+            }
+
+            &.current-page {
+                background-color: $secondary-color;
+
+                > span {
+                    color: $main-color;
+                }
+            }
+
+            &:hover {
+                background-color: $secondary-color;
+
+                > span {
+                    color: $main-color;
+                }
+            }
+        }
+    }
+}

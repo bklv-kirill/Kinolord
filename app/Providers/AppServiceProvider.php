@@ -18,5 +18,9 @@ class AppServiceProvider extends ServiceProvider
         Blade::component(\App\View\Components\Headers\Main::class, 'main-header');
 
         Blade::component(\App\View\Components\Footers\Main::class, 'main-footer');
+
+        Blade::component(\App\View\Components\Kinopoisk\Card::class, 'kinopoisk-card');
+        Blade::component(\App\View\Components\Kinopoisk\Pagination::class, 'kinopoisk-pagination');
+        Blade::component(\App\View\Components\Kinopoisk\EmptySearch::class, 'kinopoisk-empty-search');
     }
 }

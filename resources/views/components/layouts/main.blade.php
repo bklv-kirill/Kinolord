@@ -14,5 +14,6 @@
     {{ $slot }}
 </main>
 <x-main-footer/>
+<div class="scroll-to-top-button"></div>
 </body>
 </html>

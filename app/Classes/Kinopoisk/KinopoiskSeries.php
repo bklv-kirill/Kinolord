@@ -10,6 +10,8 @@ class KinopoiskSeries extends AbstractKinopoisk implements IKinopoisk
     protected const MOVIE_URL = '/movie';
     public function get(array $queryParams): array
     {
-        return $this->query->get(self::URL . self::MOVIE_URL, $queryParams)->json();
+        $series = $this->query->get(self::URL . self::MOVIE_URL, array_merge(['type'=>'tv-series'], $queryParams))->json();
+
+        return $this->checkIsEmptyData($series) ? self::EMPTY_DATA : $series;
     }
 }

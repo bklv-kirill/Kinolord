@@ -1,0 +1,37 @@
+.main-header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  padding: 10px;
+  background-color: #1C1B22;
+}
+.main-header > span, .main-header > ul > li {
+  margin: 10px;
+  font-family: "Nunito", sans-serif;
+  font-optical-sizing: auto;
+  font-size: 30px;
+  font-weight: 500;
+  font-style: normal;
+}
+.main-header > span > a, .main-header > ul > li > a {
+  text-decoration: none;
+  color: #EDEEF0;
+}
+.main-header > ul {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  list-style: none;
+}
+.main-header > ul > li {
+  font-size: 18px;
+}
+.main-header > ul > li.active-page {
+  border-bottom: 1px solid #FFFFFF;
+  border-bottom-left-radius: 1px;
+  border-bottom-right-radius: 1px;
+}
+
+/*# sourceMappingURL=main.css.map */

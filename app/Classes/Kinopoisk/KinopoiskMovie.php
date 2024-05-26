@@ -11,6 +11,8 @@ class KinopoiskMovie extends AbstractKinopoisk implements IKinopoisk
 
     public function get(array $queryParams): array
     {
-        return $this->query->get(self::URL . self::MOVIE_URL, $queryParams)->json();
+        $movies = $this->query->get(self::URL . self::MOVIE_URL, array_merge(['type'=>'movie'], $queryParams))->json();
+
+        return $this->checkIsEmptyData($movies) ? self::EMPTY_DATA : $movies;
     }
 }

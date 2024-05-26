@@ -9,5 +9,10 @@ body {
   grid-template-rows: auto 1fr auto;
   min-height: 100vh;
 }
+body > .main-container {
+  margin: 0 auto;
+  padding: 10px;
+  max-width: 85%;
+}
 
 /*# sourceMappingURL=app.css.map */

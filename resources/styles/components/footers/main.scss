@@ -1,0 +1,41 @@
+@import '../../variables/color';
+
+.main-footer {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    padding: 20px;
+
+    background-color: $main-color;
+
+    > span, > ul > li {
+        margin: 10px;
+
+        font-family: "Nunito", sans-serif;
+        font-optical-sizing: auto;
+        font-size: 20px;
+        font-weight: 500;
+        font-style: normal;
+
+        > a {
+            text-decoration: none;
+            color: $secondary-color;
+        }
+    }
+
+    > ul {
+        list-style: none;
+
+        > li {
+            font-size: 12px;
+
+            transition: transform 0.2s ease;
+
+            &:hover {
+                transform: translateX(5px);
+            }
+        }
+    }
+}

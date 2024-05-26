@@ -1,0 +1,46 @@
+@import '../../variables/color';
+
+.main-header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+
+    padding: 10px;
+
+    background-color: $main-color;
+
+    > span, > ul > li {
+        margin: 10px;
+
+        font-family: "Nunito", sans-serif;
+        font-optical-sizing: auto;
+        font-size: 30px;
+        font-weight: 500;
+        font-style: normal;
+
+        > a {
+            text-decoration: none;
+            color: $secondary-color;
+        }
+    }
+
+    > ul {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+
+        list-style: none;
+
+        > li {
+            font-size: 18px;
+
+            &.active-page {
+                border-bottom: 1px solid $secondary-color-hover;
+                border-bottom-left-radius: 1px;
+                border-bottom-right-radius: 1px;
+            }
+        }
+    }
+}

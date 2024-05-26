@@ -1,0 +1,1 @@
+{"version":3,"sourceRoot":"","sources":["pagination.scss","../../variables/color.scss"],"names":[],"mappings":"AAEA;EACI;EACA;EACA;EACA;EAEA;;AAEA;EACI;;AAEA;EACI;EACA;EACA;EAEA;EACA;EAEA,kBCpBC;EDqBD;EAGA;EACA;EACA;EACA;EACA;EAEA;EAEA;;AAEA;EACI,OC/BE;;ADkCN;EACI,kBCnCE;;ADqCF;EACI,OC1CP;;AD8CD;EACI,kBC3CE;;AD6CF;EACI,OClDP","file":"pagination.css"}
