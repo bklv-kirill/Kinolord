@@ -22,5 +22,11 @@ class AppServiceProvider extends ServiceProvider
         Blade::component(\App\View\Components\Kinopoisk\Card::class, 'kinopoisk-card');
         Blade::component(\App\View\Components\Kinopoisk\Pagination::class, 'kinopoisk-pagination');
         Blade::component(\App\View\Components\Kinopoisk\EmptySearch::class, 'kinopoisk-empty-search');
+
+        Blade::component(\App\View\Components\Forms\Form::class, 'form');
+
+        Blade::if('notEmpty', function (array $data) {
+            return !empty($data);
+        });
     }
 }

@@ -2,19 +2,29 @@
 
 namespace App\Http\Controllers\Pages\Series;
 
+use App\Facades\Kinopoisk\KinopoiskFacade as Kinopoisk;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\KinopoiskRequest;
-use App\Services\Kinopoisk\KinopoiskSeriesService;
+use App\Models\Country;
+use App\Models\Genre;
 use Illuminate\View\View;
 
 class IndexController extends Controller
 {
-    public function __invoke(KinopoiskRequest $request, KinopoiskSeriesService $kinopoiskSeriesService): View
+
+    public function __invoke(KinopoiskRequest $request): View
     {
-        $seriesQueryParams = $request->validated();
+        $requestData = $request->validated();
 
-        $series = $kinopoiskSeriesService->getContent($seriesQueryParams);
+        $series = Kinopoisk::query($requestData)->series();
 
-        return view('pages.series.index', compact(['series']));
+        $countries = Country::query()->get();
+        $genres    = Genre::query()->get();
+
+        unset($requestData['page']);
+
+        return view('pages.series.index',
+            compact(['series', 'countries', 'genres', 'requestData']));
     }
+
 }

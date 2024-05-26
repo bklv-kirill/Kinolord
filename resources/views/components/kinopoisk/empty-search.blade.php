@@ -1,4 +1,4 @@
-<div class="empty">
+<div class="empty-search">
     <h2>Ничего не найдено</h2>
     <p>Попробуйте изменить параметры фильтра</p>
 </div>

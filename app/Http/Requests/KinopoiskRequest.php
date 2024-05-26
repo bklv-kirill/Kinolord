@@ -15,6 +15,11 @@ class KinopoiskRequest extends FormRequest
     {
         return [
             'page' => ['nullable', 'integer', 'min:1'],
+            'year' => ['nullable', 'integer'],
+            'genres' => ['nullable', 'array'],
+            'genres.*' => ['nullable', 'integer', 'exists:genres,id'],
+            'countries' => ['nullable', 'array'],
+            'countries.*' => ['nullable', 'integer', 'exists:countries,id'],
         ];
     }
 }

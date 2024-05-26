@@ -12,9 +12,11 @@ class Pagination extends Component
         public int $page,
         public int $pages,
         public string $route,
+        public array $queryParams,
     )
     {
-        //
+        $this->page = $this->page > $this->pages ? 1 : $this->page;
+        $this->pages = $this->page > $this->pages ? 1 : $this->pages;
     }
 
     public function render(): View|Closure|string

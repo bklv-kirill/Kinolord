@@ -3,7 +3,7 @@
 if (! function_exists('getCardName')) {
     function getCardName(array $kpData): string
     {
-        return $kdData['name'] ?? $kpData['alternativeName'] ?? 'Информация отстутствует';
+        return $kpData['name'] ?? ($kpData['alternativeName'] ?? 'Информация отстутствует');
     }
 }
 
@@ -21,7 +21,7 @@ if (! function_exists('getCardDescription')) {
 if (! function_exists('getCardYear')) {
     function getCardYear(array $kpData): string
     {
-        return $kpData['year'] ? $kpData['year'] . ' - ' : '';
+        return $kpData['year'] ? ' - ' . $kpData['year'] : '';
     }
 }
 
@@ -34,9 +34,7 @@ if (! function_exists('getCardCountries')) {
             $countries[] = $country['name'];
         }
 
-        if (!empty($countries)) {
-            return implode(', ', $countries) . ' - ';
-        } else return '';
+        return !empty($countries) ? implode(', ', $countries) : '';
     }
 }
 
@@ -49,6 +47,6 @@ if (! function_exists('getCardGenres')) {
             $genres[] = $genre['name'];
         }
 
-        return implode(' - ', $genres);
+        return !empty($genres) ? ' - ' . implode(', ', $genres) : '';
     }
 }

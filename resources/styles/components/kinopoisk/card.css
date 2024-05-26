@@ -8,11 +8,17 @@
 }
 .card .preview {
   margin: 10px;
-  width: 300px;
-  max-width: 300px;
+  width: 200px;
+  max-width: 200px;
 }
 .card .preview > img {
   width: 100%;
+}
+@media (max-width: 430px) {
+  .card .preview {
+    width: 100%;
+    max-width: unset;
+  }
 }
 .card > .infos {
   display: flex;

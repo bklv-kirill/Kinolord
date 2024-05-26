@@ -12,6 +12,16 @@
                 <h3>Описание</h3>
                 <p>{{ getCardDescription($kpData) }}</p>
             </div>
+            @isset($kpData['totalSeriesLength'])
+                <div class="info">
+                    <p>Серий: {{ $kpData['totalSeriesLength'] }}</p>
+                </div>
+            @endisset
+            @isset($kpData['seriesLength'])
+                <div class="info">
+                    <p>Длительность серии (сред.): {{ $kpData['seriesLength'] }} мин.</p>
+                </div>
+            @endisset
         </div>
 
         @php
