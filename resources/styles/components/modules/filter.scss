@@ -1,0 +1,39 @@
+@import '../../variables/color';
+
+.filters {
+
+    > form {
+        display: flex;
+        flex-direction: column;
+
+        > .filter {
+            margin-top: 10px;
+
+            > label {
+                font-family: "Nunito", sans-serif;
+                font-optical-sizing: auto;
+                font-size: 18px;
+                font-weight: 500;
+                font-style: normal;
+            }
+        }
+
+        > button {
+            margin-top: 20px;
+            padding: 10px 15px;
+
+            background-color: $main-color;
+            border: none;
+            border-radius: 5px;
+
+            font-family: "Nunito", sans-serif;
+            font-optical-sizing: auto;
+            font-size: 18px;
+            font-weight: 500;
+            font-style: normal;
+            color: $secondary-color;
+
+            cursor: pointer;
+        }
+    }
+}

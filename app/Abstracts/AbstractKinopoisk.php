@@ -9,26 +9,19 @@ use Illuminate\Support\Facades\Http;
 
 abstract class AbstractKinopoisk
 {
-
-    protected const URL = 'https://api.kinopoisk.dev/v1.4/movie';
-
-    protected string $apiKey;
-
     protected PendingRequest $query;
 
     protected array $queryParams = [];
-
     protected const EMPTY_DATA
         = [
+            'docs' => [],
             'page'  => 1,
             'pages' => 1,
         ];
 
     public function __construct()
     {
-        $this->apiKey = env('KINOPOISK_API_KEY');
-
-        $this->query = Http::withHeader('X-API-KEY', $this->apiKey);
+        $this->query = Http::withHeader('X-API-KEY', env('KINOPOISK_API_KEY'));
     }
 
     public function query(array $queryParams): self
@@ -38,13 +31,13 @@ abstract class AbstractKinopoisk
         return $this;
     }
 
-    protected function getEntityData(string $entity): array
+    protected function getEntityData(): array
     {
-        $queryString = (new BuildQueryStringAction($this->queryParams))($entity);
+        $queryString = (new BuildQueryStringAction($this->queryParams, $this->notNullFields))();
 
-        $data = $this->query->get(self::URL.$queryString)->json();
+        $data = $this->query->get($this->url.$queryString)->json();
 
-        return !(new CheckIsEmptyDataAction())($data) ? self::EMPTY_DATA : $data;
+        return (new CheckIsEmptyDataAction())($data) ? self::EMPTY_DATA : $data;
     }
 
 }

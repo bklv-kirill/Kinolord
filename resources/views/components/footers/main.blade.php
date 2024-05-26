@@ -1,5 +1,5 @@
 <footer class="main-footer">
-    <span><a href="{{ route('main') }}">KinoLord</a></span>
+    <span><a href="{{ route('main') }}">Fenix Cinema</a></span>
     <ul>
         <li><a href="{{ route('movie.index') }}">Фильмы</a></li>
         <li><a href="{{ route('series.index') }}">Сериалы</a></li>

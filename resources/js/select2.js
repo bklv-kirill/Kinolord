@@ -109,4 +109,31 @@ $(document).ready(function () {
             },
         },
     });
+
+    $('#sort-field-select').select2({
+        language: 'ru',
+        width: '100%',
+        ajax: {
+            url: "/api/sorts",
+            dataType: 'json',
+            delay: 250,
+            processResults: function (response, options) {
+                const data = response.data;
+
+                data.forEach(function (sort) {
+                    sort.text = sort.name
+                })
+
+                return {
+                    results: data,
+                };
+            },
+
+        },
+    });
+
+    $('#sort-type-select').select2({
+        language: 'ru',
+        width: '100%',
+    });
 });

@@ -6,7 +6,7 @@ class CheckIsEmptyDataAction
 {
     public function __invoke(array $data): bool
     {
-        return isset($data['docs']) || isset($data['error']);
+        return !isset($data['docs']) || isset($data['error']);
     }
 
 }

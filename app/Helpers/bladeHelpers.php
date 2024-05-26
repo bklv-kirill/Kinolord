@@ -1,31 +1,34 @@
 <?php
 
-if (! function_exists('getCardName')) {
+if ( ! function_exists('getCardName')) {
     function getCardName(array $kpData): string
     {
-        return $kpData['name'] ?? ($kpData['alternativeName'] ?? 'Информация отстутствует');
+        return $kpData['name'] ??
+            ($kpData['alternativeName'] ?? 'Информация отстутствует');
     }
 }
 
-if (! function_exists('getCardDescription')) {
+if ( ! function_exists('getCardDescription')) {
     function getCardDescription(array $kpData): string
     {
-        $fullDescription = str($kpData['description'] ?? 'Информация отсутствует');
-        $fullDescription = $fullDescription->length >= 250 ? $fullDescription->substr(0, 250) . '...' : $fullDescription;
+        $fullDescription = str($kpData['description'] ??
+            'Информация отсутствует');
+        $fullDescription = $fullDescription->length >= 250
+            ? $fullDescription->substr(0, 250).'...' : $fullDescription;
 
-
-        return $kdData['shortDescription'] ?? $fullDescription ?? 'Информация отстутствует';
+        return $kdData['shortDescription'] ??
+            $fullDescription ?? 'Информация отстутствует';
     }
 }
 
-if (! function_exists('getCardYear')) {
+if ( ! function_exists('getCardYear')) {
     function getCardYear(array $kpData): string
     {
-        return $kpData['year'] ? ' - ' . $kpData['year'] : '';
+        return $kpData['year'] ? ' - '.$kpData['year'] : '';
     }
 }
 
-if (! function_exists('getCardCountries')) {
+if ( ! function_exists('getCardCountries')) {
     function getCardCountries(array $kpData): string
     {
         $countries = [];
@@ -34,11 +37,11 @@ if (! function_exists('getCardCountries')) {
             $countries[] = $country['name'];
         }
 
-        return !empty($countries) ? implode(', ', $countries) : '';
+        return ! empty($countries) ? implode(', ', $countries) : '';
     }
 }
 
-if (! function_exists('getCardGenres')) {
+if ( ! function_exists('getCardGenres')) {
     function getCardGenres(array $kpData): string
     {
         $genres = [];
@@ -47,6 +50,35 @@ if (! function_exists('getCardGenres')) {
             $genres[] = $genre['name'];
         }
 
-        return !empty($genres) ? ' - ' . implode(', ', $genres) : '';
+        return ! empty($genres) ? ' - '.implode(', ', $genres) : '';
+    }
+}
+
+if ( ! function_exists('getCardRating')) {
+    function getCardRating(array $kpData): string|bool
+    {
+        $getRatingStringAction
+            = new \App\Actions\Kinopoisk\GetRatingStringAction();
+
+        if (isset($kpData['rating'])) {
+            $rating = [];
+
+            if ( ! is_null($kpData['rating']['kp'])
+                && $kpData['rating']['kp'] !== 0
+            ) {
+                $rating[] = $getRatingStringAction($kpData['rating']['kp'],
+                    'KP');
+            }
+            if ( ! is_null($kpData['rating']['imdb'])
+                && $kpData['rating']['imdb'] !== 0
+            ) {
+                $rating[] = $getRatingStringAction($kpData['rating']['imdb'],
+                    'IMDB');
+            }
+
+            return implode(', ', $rating);
+        } else {
+            return false;
+        }
     }
 }

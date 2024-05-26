@@ -13,7 +13,7 @@ class IndexController extends Controller
 
     public function __invoke(SearchRequest $request): CountryCollection
     {
-        $query = $request->get('query', '');
+        $query = $request->get('q', '');
         $page  = $request->get('page', 1);
 
         $countries = Country::query()

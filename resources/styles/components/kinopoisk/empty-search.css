@@ -1,9 +1,9 @@
 .empty-search {
   padding: 10px;
   margin: 10px;
+  text-align: center;
 }
 .empty-search > h2 {
-  text-align: center;
   font-family: "Nunito", sans-serif;
   font-optical-sizing: auto;
   font-size: 22px;

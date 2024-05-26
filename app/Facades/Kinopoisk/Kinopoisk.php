@@ -6,17 +6,32 @@ use App\Abstracts\AbstractKinopoisk;
 
 class Kinopoisk extends AbstractKinopoisk
 {
+    protected string $url = 'https://api.kinopoisk.dev/v1.4/movie?';
+    protected array $notNullFields
+        = [
+            'name',
+            'description',
+            'poster.url',
+        ];
+
     public function movies(): array
     {
-        return $this->getEntityData('movie');
+        $this->queryParams['type'] = 'movie';
+        return $this->getEntityData();
     }
     public function series(): array
     {
-        return $this->getEntityData('tv-series');
+        $this->queryParams['type'] = 'tv-series';
+        return $this->getEntityData();
     }
 
     public function anime(): array
     {
-        return $this->getEntityData('anime');
+        $this->queryParams['type'] = 'anime';
+        return $this->getEntityData();
+    }
+    public function persons(): array
+    {
+        return $this->getEntityData();
     }
 }

@@ -15,8 +15,6 @@ class Pagination extends Component
         public array $queryParams,
     )
     {
-        $this->page = $this->page > $this->pages ? 1 : $this->page;
-        $this->pages = $this->page > $this->pages ? 1 : $this->pages;
     }
 
     public function render(): View|Closure|string

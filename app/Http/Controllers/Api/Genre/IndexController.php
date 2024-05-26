@@ -14,7 +14,7 @@ class IndexController extends Controller
 {
     public function __invoke(SearchRequest $request): GenreCollection
     {
-        $query = $request->get('query', '');
+        $query = $request->get('q', '');
         $page  = $request->get('page', 1);
 
         $genres = Genre::query()

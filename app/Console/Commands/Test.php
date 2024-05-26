@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Sort;
 use Illuminate\Console\Command;
 
 class Test extends Command

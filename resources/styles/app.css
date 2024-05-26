@@ -15,4 +15,12 @@ body > .main-container {
   max-width: 85%;
 }
 
+.select2-results__option:hover {
+  background-color: #1C1B22 !important;
+}
+
+.select2-results__option[aria-selected=true] {
+  background-color: #1C1B22 !important;
+}
+
 /*# sourceMappingURL=app.css.map */

@@ -1,15 +1,15 @@
 <div class="card">
     <div class="preview">
-        <img src="{{ $kpData['poster']['previewUrl'] ?? '/images/preview.png' }}" alt="{{ $kpData['name'] ?? $kpData['alternativeName'] }}">
+        <a href="{{ $kpData['poster']['previewUrl'] }}" data-fancybox data-caption="{{ $kpData['name'] ?? $kpData['alternativeName'] }}">
+            <img src="{{ $kpData['poster']['previewUrl'] }}" alt="{{ $kpData['name'] ?? $kpData['alternativeName'] }}"/>
+        </a>
     </div>
     <div class="infos">
         <div class="main-infos">
             <div class="info">
-                <h3>Название</h3>
-                <p>{{ getCardName($kpData) }}</p>
+                <h3>{{ getCardName($kpData) }}</h3>
             </div>
             <div class="info">
-                <h3>Описание</h3>
                 <p>{{ getCardDescription($kpData) }}</p>
             </div>
             @isset($kpData['totalSeriesLength'])
@@ -30,6 +30,11 @@
             $genres = isset($kpData['genres']) ? getCardGenres($kpData) : '';
         @endphp
         <div class="secondary-infos">
+            @if($rating = getCardRating($kpData))
+                <div class="info">
+                    <p>{!! $rating !!}</p>
+                </div>
+            @endif
             <div class="info">
                 <p>{!! $countries . $year . $genres !!}</p>
             </div>

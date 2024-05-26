@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers\Pages\Movie;
 
+use App\Actions\Kinopoisk\GetFilterDataAction;
 use App\Facades\Kinopoisk\KinopoiskFacade as Kinopoisk;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\KinopoiskRequest;
-use App\Models\Country;
-use App\Models\Genre;
 use Illuminate\View\View;
 
 class IndexController extends Controller
@@ -18,12 +17,11 @@ class IndexController extends Controller
 
         $movies = Kinopoisk::query($requestData)->movies();
 
-        $countries = Country::query()->get();
-        $genres = Genre::query()->get();
+        $filterData = (new GetFilterDataAction())($requestData);
 
         unset($requestData['page']);
 
-        return view('pages.movie.index', compact(['movies', 'countries', 'genres', 'requestData']));
+        return view('pages.movie.index', compact(['movies', 'filterData', 'requestData']));
     }
 
 }

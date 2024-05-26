@@ -1,0 +1,30 @@
+.filters > form {
+  display: flex;
+  flex-direction: column;
+}
+.filters > form > .filter {
+  margin-top: 10px;
+}
+.filters > form > .filter > label {
+  font-family: "Nunito", sans-serif;
+  font-optical-sizing: auto;
+  font-size: 18px;
+  font-weight: 500;
+  font-style: normal;
+}
+.filters > form > button {
+  margin-top: 20px;
+  padding: 10px 15px;
+  background-color: #1C1B22;
+  border: none;
+  border-radius: 5px;
+  font-family: "Nunito", sans-serif;
+  font-optical-sizing: auto;
+  font-size: 18px;
+  font-weight: 500;
+  font-style: normal;
+  color: #EDEEF0;
+  cursor: pointer;
+}
+
+/*# sourceMappingURL=filter.css.map */

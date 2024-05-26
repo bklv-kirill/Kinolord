@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Resources\Api\Genre;
+namespace App\Http\Resources\Api\Sort;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class GenreResource extends JsonResource
+class SortResource extends JsonResource
 {
     public function toArray(Request $request): array
     {
