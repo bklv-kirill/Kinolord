@@ -21,8 +21,8 @@
         @endif
 
         @php
-            $firstStep = $page === 1 ? 0 : ($page === $pages ? 3 : 2);
-            $secondStep = $page === 1 ? 3 : ($page === $pages ? 1 : ($pages - $page !== 1 ? 3 : 2));
+            $firstStep = $page === 1 ? 0 : ($page === $pages ? 3 : ($page > 2 ? 2 : 1));
+            $secondStep = $page === 1 ? 4 : ($page === $pages ? 1 : ($pages - $page !== 1 ? 3 : 2));
         @endphp
         @for($iPage = $page - $firstStep; $iPage < $page + $secondStep; $iPage++)
             <a href="{{ route($route, ['page' => $iPage]) }}">

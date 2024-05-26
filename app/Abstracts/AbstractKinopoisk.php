@@ -26,7 +26,7 @@ abstract class AbstractKinopoisk
 
     protected function checkIsEmptyData(array $data): bool
     {
-        return !isset($movies['docs']) || isset($movies['error']);
+        return !isset($data['docs']) || isset($data['error']);
 
     }
 
