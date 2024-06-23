@@ -15,7 +15,7 @@ services:
       - 80:80
     restart: always
     volumes:
-      - ./:/var/www/app
+      - ./:/var/www/html
     depends_on:
       - php
       - mysql
@@ -32,17 +32,7 @@ services:
     container_name: ${APP_NAME}_php
     restart: always
     volumes:
-      - ./:/var/www/app
-    networks:
-      - fenix_cinema_network
-
-  npm:
-    build:
-      context: ./docker
-      dockerfile: npm.dockerfile
-    container_name: ${APP_NAME}_npm
-    volumes:
-      - ./:/var/www/app
+      - ./:/var/www/html
     networks:
       - fenix_cinema_network
 
@@ -80,6 +70,15 @@ services:
     networks:
       - fenix_cinema_network
 
+  npm:
+    build:
+      context: ./docker
+      dockerfile: npm.dockerfile
+    container_name: ${APP_NAME}_npm
+    volumes:
+      - ./:/var/www/html
+    networks:
+      - fenix_cinema_network
 
 networks:
   fenix_cinema_network:
