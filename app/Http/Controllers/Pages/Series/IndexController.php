@@ -6,6 +6,8 @@ use App\Actions\Kinopoisk\GetFilterDataAction;
 use App\Facades\Kinopoisk\KinopoiskFacade as Kinopoisk;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\KinopoiskRequest;
+use App\Models\Custom\Series;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\View\View;
 
 class IndexController extends Controller
@@ -15,14 +17,14 @@ class IndexController extends Controller
     {
         $requestData = $request->validated();
 
-        $series = Kinopoisk::query($requestData)->series();
+        $series = Series::query()->filter($requestData)->get();
 
         $filterData = (new GetFilterDataAction())($requestData);
 
-        unset($requestData['page']);
+        $pagination = new LengthAwarePaginator($series, $series['total'], 10, $series['page'] ?? 1);
+        $pagination->withPath('/series')->withQueryString();
 
-        return view('pages.series.index',
-            compact(['series', 'filterData', 'requestData']));
+        return view('pages.series.index', compact(['series', 'filterData', 'requestData', 'pagination']));
     }
 
 }

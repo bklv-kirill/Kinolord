@@ -3,21 +3,19 @@
 if ( ! function_exists('getCardName')) {
     function getCardName(array $kpData): string
     {
-        return $kpData['name'] ??
-            ($kpData['alternativeName'] ?? 'Информация отстутствует');
+        return $kpData['name'] ?? ($kpData['alternativeName'] ?? 'Информация отстутствует');
     }
 }
 
 if ( ! function_exists('getCardDescription')) {
     function getCardDescription(array $kpData): string
     {
-        $fullDescription = str($kpData['description'] ??
-            'Информация отсутствует');
-        $fullDescription = $fullDescription->length >= 250
-            ? $fullDescription->substr(0, 250).'...' : $fullDescription;
+        $fullDescription = str($kpData['description'] ?? 'Информация отсутствует');
+        $fullDescription = $fullDescription->length >= 250 ?
+            $fullDescription->substr(0, 250) . '...' :
+            $fullDescription;
 
-        return $kdData['shortDescription'] ??
-            $fullDescription ?? 'Информация отстутствует';
+        return $kdData['shortDescription'] ?? $fullDescription ?? 'Информация отстутствует';
     }
 }
 
@@ -57,23 +55,16 @@ if ( ! function_exists('getCardGenres')) {
 if ( ! function_exists('getCardRating')) {
     function getCardRating(array $kpData): string|bool
     {
-        $getRatingStringAction
-            = new \App\Actions\Kinopoisk\GetRatingStringAction();
+        $getRatingStringAction = new \App\Actions\Kinopoisk\GetRatingStringAction();
 
         if (isset($kpData['rating'])) {
             $rating = [];
 
-            if ( ! is_null($kpData['rating']['kp'])
-                && $kpData['rating']['kp'] !== 0
-            ) {
-                $rating[] = $getRatingStringAction($kpData['rating']['kp'],
-                    'KP');
+            if ( $kpData['rating']['kp'] !== null && $kpData['rating']['kp'] !== 0) {
+                $rating[] = $getRatingStringAction($kpData['rating']['kp'], 'KP');
             }
-            if ( ! is_null($kpData['rating']['imdb'])
-                && $kpData['rating']['imdb'] !== 0
-            ) {
-                $rating[] = $getRatingStringAction($kpData['rating']['imdb'],
-                    'IMDB');
+            if ( $kpData['rating']['imdb'] !== null && $kpData['rating']['imdb'] !== 0) {
+                $rating[] = $getRatingStringAction($kpData['rating']['imdb'], 'IMDB');
             }
 
             return implode(', ', $rating);

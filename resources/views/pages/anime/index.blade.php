@@ -49,8 +49,6 @@
         @endforelse
     </div>
 
-    @notEmpty($anime['docs'])
-    <x-kinopoisk-pagination :page="$anime['page']" :pages="$anime['pages']" route="anime.index" :queryParams="$requestData" />
-    @endnotEmpty
+    {{ $pagination->links() }}
 
 </x-main-layout>

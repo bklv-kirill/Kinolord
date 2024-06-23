@@ -2,8 +2,11 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Custom\Movie;
 use App\Models\Genre;
 use Illuminate\Console\Command;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Str;
 
 class TestCommand extends Command
 {
@@ -13,12 +16,9 @@ class TestCommand extends Command
 
     public function handle()
     {
-        Genre::query()->get()->each(function (Genre $genre) {
-            $genre->update([
-                'name' => str($genre->name)->ucfirst(),
-            ]);
-        });
-
+        $movies = Movie::query()->get();
+        $paginator = new LengthAwarePaginator($movies, $movies['total'], 10);
+        dd($paginator->links());
         dd('test');
     }
 }

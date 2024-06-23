@@ -7,7 +7,7 @@ use App\Models\Country;
 use App\Models\Genre;
 use App\Models\Sort;
 
-class GetFilterDataAction
+final class GetFilterDataAction
 {
     protected array $filterData = [];
 

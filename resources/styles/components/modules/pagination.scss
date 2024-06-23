@@ -1,0 +1,36 @@
+@import '../../variables/color';
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  list-style: none;
+
+  > li {
+    margin: 10px;
+    padding: 10px;
+
+    background-color: $main-color;
+    border-radius: 2px;
+
+    > a, > span {
+      font-family: "Nunito", sans-serif;
+      font-optical-sizing: auto;
+      font-size: 18px;
+      font-weight: 500;
+      font-style: normal;
+      color: $secondary-color;
+
+      text-decoration: none;
+    }
+
+    &.active, &.disabled {
+      background-color: $secondary-color;
+
+      > a, > span {
+        color: $main-color;
+      }
+    }
+  }
+}

@@ -2,5 +2,5 @@
 
 return [
     App\Providers\AppServiceProvider::class,
-    App\Providers\KinopoiskServiceProvider::class,
+    App\Providers\BladeServiceProvider::class,
 ];

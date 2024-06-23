@@ -7,7 +7,7 @@
     <div class="infos">
         <div class="main-infos">
             <div class="info">
-                <h3>{{ getCardName($kpData) }}</h3>
+                <h3><a href="{{ route('movie.show', $kpData['id']) }}">{{ getCardName($kpData) }}</a></h3>
             </div>
             <div class="info">
                 <p>{{ getCardDescription($kpData) }}</p>

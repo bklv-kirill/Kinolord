@@ -2,42 +2,99 @@
 
 namespace App\Abstracts;
 
-use App\Actions\Kinopoisk\BuildQueryStringAction;
-use App\Actions\Kinopoisk\CheckIsEmptyDataAction;
+use App\Filters\KinopoistFilter;
 use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Support\Facades\Http;
 
 abstract class AbstractKinopoisk
 {
-    protected PendingRequest $query;
+    private const URL = 'https://api.kinopoisk.dev/v1.4/movie';
+    private const EMPTY_DATA = [
+        'docs' => [],
+        'page' => 1,
+        'pages' => 1,
+    ];
+    protected PendingRequest $request;
+    public string $query;
 
-    protected array $queryParams = [];
-    protected const EMPTY_DATA
-        = [
-            'docs' => [],
-            'page'  => 1,
-            'pages' => 1,
-        ];
+    public function __construct() {
+        $this->query = '?type=' . $this->type;
 
-    public function __construct()
-    {
-        $this->query = Http::withHeader('X-API-KEY', env('KINOPOISK_API_KEY'));
+        $this->request = Http::withHeaders([
+            'X-API-KEY' => config('kinopoisk.api_key'),
+            'Content-Type' => 'application/json',
+        ]);
     }
 
-    public function query(array $queryParams): self
+    public static function query(): static
     {
-        $this->queryParams = $queryParams;
+        return new static();
+    }
+
+    public function filter(array $requestData): static
+    {
+        $filter = new KinopoistFilter($this, $requestData);
+        $filter->apply();
 
         return $this;
     }
 
-    protected function getEntityData(): array
+    public function whereNotNullFields(array $notNullFields): static
     {
-        $queryString = (new BuildQueryStringAction($this->queryParams, $this->notNullFields))();
+        foreach ($notNullFields as $field) {
+            $this->query .= '&notNullFields' . '=' . $field;
+        }
 
-        $data = $this->query->get($this->url.$queryString)->json();
-
-        return (new CheckIsEmptyDataAction())($data) ? self::EMPTY_DATA : $data;
+        return $this;
     }
 
+    public function whereGenres(array $genres): static
+    {
+        foreach ($genres as $genre) {
+            $this->query .= '&genres.name=%2B' . $genre;
+        }
+
+        return $this;
+    }
+
+    public function whereCountries(array $countries): static
+    {
+        foreach ($countries as $country) {
+            $this->query .= '&countries.name=%2B' . $country;
+        }
+
+        return $this;
+    }
+
+    public function orderBy(string $sortField, string $sortType): static
+    {
+        $this->query .= '&sortField=' . $sortField;
+        $this->query .= '&sortType=' . $sortType;
+
+        return $this;
+    }
+
+    public function get(): array
+    {
+        $this->whereNotNullFields([
+            'name',
+            'description',
+            'poster.url',
+        ]);
+
+        $response = $this->request->get(self::URL . $this->query);
+
+        return $response->successful() ?
+            $response->json() :
+            self::EMPTY_DATA;
+    }
+
+    public function find(int $id): array|null
+    {
+        $response = $this->request->get(self::URL . '/' . $id);
+
+        return $response->successful() ?
+            $response->json() :
+            null;
+    }
 }

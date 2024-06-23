@@ -7,6 +7,7 @@ Route::get('/', MainPageController::class)->name('main');
 
 Route::name('movie.')->group(function () {
     Route::get('/movies', \App\Http\Controllers\Pages\Movie\IndexController::class)->name('index');
+    Route::get('/viewing/{movieId}', \App\Http\Controllers\Pages\ShowController::class)->name('show');
 });
 Route::name('series.')->group(function () {
     Route::get('/series', \App\Http\Controllers\Pages\Series\IndexController::class)->name('index');
