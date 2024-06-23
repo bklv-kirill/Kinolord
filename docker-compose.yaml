@@ -3,26 +3,28 @@ version: "3.8"
 services:
   nginx:
     build:
-      context: ./docker/dockerfiles
+      context: ./docker
       dockerfile: nginx.dockerfile
+      args:
+        - UID=${UID:-1000}
+        - GID=${GID:-1000}
     container_name: ${APP_NAME}_nginx
     expose:
       - 80/tcp
     ports:
-      - 8001:80
+      - 80:80
     restart: always
     volumes:
       - ./:/var/www/app
-      - ./docker/configs/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
     depends_on:
       - php
       - mysql
     networks:
-      - kinolord_network
+      - fenix_cinema_network
 
   php:
     build:
-      context: ./docker/dockerfiles/development
+      context: ./docker
       dockerfile: php.dockerfile
       args:
         - UID=${UID:-1000}
@@ -32,17 +34,17 @@ services:
     volumes:
       - ./:/var/www/app
     networks:
-      - kinolord_network
+      - fenix_cinema_network
 
   npm:
     build:
-      context: ./docker/dockerfiles
+      context: ./docker
       dockerfile: npm.dockerfile
     container_name: ${APP_NAME}_npm
     volumes:
       - ./:/var/www/app
     networks:
-      - kinolord_network
+      - fenix_cinema_network
 
   mysql:
     image: mysql
@@ -62,7 +64,7 @@ services:
     depends_on:
       - phpmyadmin
     networks:
-      - kinolord_network
+      - fenix_cinema_network
 
   phpmyadmin:
     image: phpmyadmin
@@ -70,16 +72,18 @@ services:
     expose:
       - 80/tcp
     ports:
-      - 8081:80
+      - 8000:80
     restart: always
     environment:
       - PMA_HOST=${DB_HOST}
       - PMA_PORT=${DB_PORT}
     networks:
-      - kinolord_network
+      - fenix_cinema_network
 
 
 networks:
-  kinolord_network:
-    name: kinolord_network
+  fenix_cinema_network:
+    name: fenix_cinema_network
     driver: bridge
+    driver_opts:
+      com.docker.network.driver.mtu: 1450
